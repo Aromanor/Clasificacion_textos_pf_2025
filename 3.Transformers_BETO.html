@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -419,17 +419,15 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================</span>
-<span class="c1"># 2. Carga y limpieza desde único dataset</span>
-<span class="c1"># ==========================</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 2. Carga y limpieza desde único dataset</span>
 <span class="n">DATA_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Sistemas\Desktop\beto solo grid\nuevo_df.csv&quot;</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">)</span>
 
-<span class="c1"># --- Limpieza mínima ---</span>
+<span class="c1"># Limpieza mínima</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;texto_completo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;clean_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Nivel_f&#39;</span><span class="p">]</span>        <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Nivel_f&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
-<span class="c1"># --- Codificación de etiquetas ---</span>
+<span class="c1"># Codificación de etiquetas</span>
 <span class="n">label_encoder</span>  <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">label_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Nivel_f&#39;</span><span class="p">])</span>
 
@@ -445,15 +443,12 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================</span>
-<span class="c1"># 3. División de train / val / test (desde un solo dataset)</span>
-<span class="c1"># ==========================</span>
-<span class="c1"># Paso 1: train/test (80% - 20%)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3. División de train / val / test (desde un solo dataset)</span>
 <span class="n">train_df</span><span class="p">,</span> <span class="n">test_df</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
     <span class="n">df</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
 <span class="p">)</span>
 
-<span class="c1"># Paso 2: train/val (de train original: 90% - 10%)</span>
+<span class="c1"># Validación</span>
 <span class="n">train_df</span><span class="p">,</span> <span class="n">val_df</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
     <span class="n">train_df</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
 <span class="p">)</span>
@@ -470,46 +465,32 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================</span>
-<span class="c1"># 4. Pesos de clase (para la pérdida)</span>
-<span class="c1"># ==========================</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 4. Pesos de clase (para la pérdida)</span>
 <span class="n">class_weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
     <span class="n">compute_class_weight</span><span class="p">(</span><span class="n">class_weight</span><span class="o">=</span><span class="s1">&#39;balanced&#39;</span><span class="p">,</span>
                          <span class="n">classes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]),</span>
                          <span class="n">y</span><span class="o">=</span><span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]),</span>
-    <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span>
-<span class="p">)</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================</span>
-<span class="c1"># BÚSQUEDA MANUAL DE HIPERPARÁMETROS</span>
-<span class="c1"># ==========================</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Búsqueda de hiperparámetros</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
-<span class="c1"># ---------- Grilla de hiperparámetros ----------</span>
-<span class="c1"># param_grid = {</span>
-<span class="c1">#     &quot;learning_rate&quot;: [1e-4, 3e-5, 4e-5],</span>
-<span class="c1">#     &quot;per_device_train_batch_size&quot;: [8, 16],</span>
-<span class="c1">#     &quot;num_train_epochs&quot;: [10, 15],</span>
-<span class="c1">#     &quot;weight_decay&quot;: [0.0, 0.2],</span>
-<span class="c1">#     &quot;lr_scheduler_type&quot;: [&quot;cosine&quot;]</span>
-<span class="c1"># }</span>
-
 <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1e-5</span><span class="p">,</span> <span class="mf">3e-5</span><span class="p">],</span>  <span class="c1"># Aprendizaje más lento estabiliza</span>
     <span class="s2">&quot;per_device_train_batch_size&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span>  <span class="c1"># Más pequeño = más ruido = más generalización</span>
-    <span class="s2">&quot;num_train_epochs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span>  <span class="c1"># Control de sobreajuste en número de épocas</span>
-    <span class="s2">&quot;weight_decay&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>  <span class="c1"># Penaliza magnitud de pesos</span>
+    <span class="s2">&quot;num_train_epochs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span>
+    <span class="s2">&quot;weight_decay&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
     <span class="s2">&quot;lr_scheduler_type&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;cosine&quot;</span><span class="p">],</span>  <span class="c1"># Cosine decae mejor con menos overfitting</span>
-    <span class="s2">&quot;warmup_ratio&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>  <span class="c1"># Inicio suave para evitar aprender demasiado rápido</span>
-    <span class="s2">&quot;gradient_accumulation_steps&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>  <span class="c1"># Simula batch más grande, mejora estabilidad</span>
-    <span class="s2">&quot;fp16&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">],</span>  <span class="c1"># Usa media precisión para estabilidad y velocidad si tu GPU lo permite</span>
+    <span class="s2">&quot;warmup_ratio&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+    <span class="s2">&quot;gradient_accumulation_steps&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>  <span class="c1"># Simula batch más grande</span>
+    <span class="s2">&quot;fp16&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">],</span>  <span class="c1"># Usa media precisión para estabilidad con GPU</span>
 <span class="p">}</span>
 
 <span class="c1"># Generar combinaciones de hiperparámetros</span>
@@ -527,7 +508,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ---------- Tokenizador y modelo base ----------</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tokenizador y modelo base</span>
 <span class="c1">#model_name = &quot;dccuchile/bert-base-spanish-wwm-cased&quot;</span>
 <span class="n">model_name</span> <span class="o">=</span> <span class="s2">&quot;PlanTL-GOB-ES/roberta-base-bne&quot;</span>
 
@@ -536,7 +517,7 @@ document.write(`
     <span class="n">model_name</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
 <span class="p">)</span>
 
-<span class="c1"># ---------- Conversión a datasets ----------</span>
+<span class="c1"># Conversión a datasets</span>
 <span class="k">def</span> <span class="nf">to_hfds</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;texto_completo&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">]])</span>
 
@@ -559,7 +540,7 @@ document.write(`
                     <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;max_length&quot;</span><span class="p">,</span>
                     <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
                     
-<span class="c1"># Estos para SLIDING WINDO -----------------------               </span>
+<span class="c1"># Estos para SLIDING WINDOW -----------------------               </span>
                     <span class="n">stride</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
                     <span class="n">return_overflowing_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">return_special_tokens_mask</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -594,14 +575,11 @@ document.write(`
 <span class="n">test_ds_windowed</span> <span class="o">=</span> <span class="n">test_ds_windowed</span><span class="o">.</span><span class="n">remove_columns</span><span class="p">(</span><span class="s2">&quot;texto_completo&quot;</span><span class="p">)</span>
 <span class="n">test_ds_windowed</span><span class="o">.</span><span class="n">set_format</span><span class="p">(</span><span class="s2">&quot;torch&quot;</span><span class="p">)</span>
 
-
-
-
 <span class="c1"># Formato PyTorch</span>
 <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="p">(</span><span class="n">train_ds</span><span class="p">,</span> <span class="n">val_ds</span><span class="p">,</span> <span class="n">test_ds</span><span class="p">):</span>
     <span class="n">ds</span><span class="o">.</span><span class="n">set_format</span><span class="p">(</span><span class="s2">&quot;torch&quot;</span><span class="p">)</span>
 
-<span class="c1"># ---------- Métricas ----------</span>
+<span class="c1"># Métricas</span>
 <span class="n">accuracy</span>  <span class="o">=</span> <span class="n">evaluate</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">)</span>
 <span class="n">f1</span>        <span class="o">=</span> <span class="n">evaluate</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;f1&quot;</span><span class="p">)</span>
 <span class="n">precision</span> <span class="o">=</span> <span class="n">evaluate</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;precision&quot;</span><span class="p">)</span>
@@ -627,16 +605,7 @@ document.write(`
               <span class="sa">f</span><span class="s2">&quot;Rec=</span><span class="si">{</span><span class="n">metrics</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;eval_recall_macro&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
-<span class="c1"># ---------- Trainer personalizado ----------</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">class WeightedTrainer(Trainer):</span>
-<span class="sd">    def compute_loss(self, model, inputs, return_outputs=False, **kwargs):</span>
-<span class="sd">        labels  = inputs.pop(&quot;labels&quot;)</span>
-<span class="sd">        outputs = model(**inputs)</span>
-<span class="sd">        loss = nn.CrossEntropyLoss(weight=class_weights.to(model.device))(outputs.logits, labels)</span>
-<span class="sd">        return (loss, outputs) if return_outputs else loss</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
+<span class="c1"># Trainer personalizado con pérdida focalizada</span>
 <span class="k">class</span> <span class="nc">FocalLossTrainer</span><span class="p">(</span><span class="n">Trainer</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">compute_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">return_outputs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">labels</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;labels&quot;</span><span class="p">)</span>
@@ -661,7 +630,7 @@ Map: 100%|██████████| 384/384 [00:00&lt;00:00, 3991.78 examp
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ---------- Búsqueda ----------</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parámetros de entrenamiento</span>
 <span class="n">out_root</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\Sistemas\Desktop\beto solo grid\out beto grid 1&quot;</span>
 <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_root</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">resultados_grid</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1901,9 +1870,7 @@ C:\Users\Sistemas\AppData\Local\Temp\ipykernel_26392\2194212552.py:32: FutureWar
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================</span>
-<span class="c1"># GUARDAR Y MOSTRAR RESULTADOS</span>
-<span class="c1"># ==========================</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Guardado de resultados</span>
 <span class="n">df_resultados</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">resultados_grid</span><span class="p">)</span>
 <span class="n">df_ordenado</span> <span class="o">=</span> <span class="n">df_resultados</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;eval_f1_macro&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
@@ -1914,7 +1881,6 @@ C:\Users\Sistemas\AppData\Local\Temp\ipykernel_26392\2194212552.py:32: FutureWar
     <span class="s2">&quot;weight_decay&quot;</span><span class="p">,</span> <span class="s2">&quot;lr_scheduler_type&quot;</span>
 <span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
 
-<span class="c1"># Guardar en CSV</span>
 <span class="n">csv_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_root</span><span class="p">,</span> <span class="s2">&quot;resultados_beto_grid_search.csv&quot;</span><span class="p">)</span>
 <span class="n">df_ordenado</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Resultados guardados en: </span><span class="si">{</span><span class="n">csv_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1943,9 +1909,7 @@ Resultados guardados en: C:\Users\Sistemas\Desktop\beto solo grid\out beto grid 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==========================</span>
-<span class="c1"># ENTRENAMIENTO FINAL CON MEJORES HIPERPARÁMETROS</span>
-<span class="c1"># ==========================</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Entrenamiento con hiperparámetros seleccionados</span>
 <span class="n">mejores_params</span> <span class="o">=</span> <span class="n">df_ordenado</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">keys</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Mejor combinación encontrada:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">mejores_params</span><span class="p">)</span>
@@ -1953,26 +1917,6 @@ Resultados guardados en: C:\Users\Sistemas\Desktop\beto solo grid\out beto grid 
 <span class="c1"># Ruta final de salida</span>
 <span class="n">output_dir_final</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_root</span><span class="p">,</span> <span class="s2">&quot;beto_modelo_final&quot;</span><span class="p">)</span>
 <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir_final</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># Argumentos finales de entrenamiento</span>
-<span class="c1"># training_args_final = TrainingArguments(</span>
-<span class="c1">#     output_dir=output_dir_final,</span>
-<span class="c1">#     evaluation_strategy=&quot;epoch&quot;,</span>
-<span class="c1">#     save_strategy=&quot;epoch&quot;,</span>
-<span class="c1">#     logging_strategy=&quot;steps&quot;,</span>
-<span class="c1">#     logging_steps=10,</span>
-<span class="c1">#     learning_rate=mejores_params[&quot;learning_rate&quot;],</span>
-<span class="c1">#     per_device_train_batch_size=mejores_params[&quot;per_device_train_batch_size&quot;],</span>
-<span class="c1">#     per_device_eval_batch_size=8,</span>
-<span class="c1">#     num_train_epochs=mejores_params[&quot;num_train_epochs&quot;],</span>
-<span class="c1">#     weight_decay=mejores_params[&quot;weight_decay&quot;],</span>
-<span class="c1">#     lr_scheduler_type=mejores_params[&quot;lr_scheduler_type&quot;],</span>
-<span class="c1">#     load_best_model_at_end=True,</span>
-<span class="c1">#     metric_for_best_model=&quot;f1_macro&quot;,</span>
-<span class="c1">#     greater_is_better=True,</span>
-<span class="c1">#     save_total_limit=2,</span>
-<span class="c1">#     seed=42</span>
-<span class="c1"># )</span>
 
 <span class="n">training_args_final</span> <span class="o">=</span> <span class="n">TrainingArguments</span><span class="p">(</span>
     <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir_final</span><span class="p">,</span>
@@ -1996,7 +1940,7 @@ Resultados guardados en: C:\Users\Sistemas\Desktop\beto solo grid\out beto grid 
     <span class="n">seed</span><span class="o">=</span><span class="mi">42</span>
 <span class="p">)</span>
 
-<span class="c1"># Entrenador final</span>
+<span class="c1"># Entrenador final ----------------------------</span>
 <span class="n">trainer_final</span> <span class="o">=</span> <span class="n">FocalLossTrainer</span><span class="p">(</span>
     <span class="n">model</span><span class="o">=</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">model_base</span><span class="p">),</span>
     <span class="n">args</span><span class="o">=</span><span class="n">training_args_final</span><span class="p">,</span>
@@ -2297,13 +2241,7 @@ Evaluación final en validación: {&#39;eval_loss&#39;: 0.6815536618232727, &#39
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ---------- PREDICCIÓN EN TEST ----------</span>
-<span class="c1"># preds_test = trainer_final.predict(test_ds)</span>
-<span class="c1"># y_logits = preds_test.predictions</span>
-<span class="c1"># y_pred   = np.argmax(y_logits, axis=-1)</span>
-<span class="c1"># y_true   = preds_test.label_ids</span>
-
-<span class="c1"># Para SLIDING WINDOW------------------------</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Para SLIDING WINDOW------------------------</span>
 <span class="c1"># Realizar predicción en todos los fragmentos</span>
 <span class="n">preds_test</span> <span class="o">=</span> <span class="n">trainer_final</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_ds_windowed</span><span class="p">)</span>
 <span class="n">logits</span> <span class="o">=</span> <span class="n">preds_test</span><span class="o">.</span><span class="n">predictions</span>
@@ -2330,7 +2268,7 @@ Evaluación final en validación: {&#39;eval_loss&#39;: 0.6815536618232727, &#39
 <span class="n">y_true</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
 
 
-<span class="c1"># ---------- MÉTRICAS Y TABLA ----------</span>
+<span class="c1"># Métricas y tabla</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">log_loss</span><span class="p">,</span>
     <span class="n">precision_recall_fscore_support</span><span class="p">,</span> <span class="n">accuracy_score</span>
@@ -2392,47 +2330,17 @@ Evaluación final en validación: {&#39;eval_loss&#39;: 0.6815536618232727, &#39
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tabla de métricas (Test final):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">metric_df</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
 
-<span class="c1"># Guardar CSV</span>
+<span class="c1"># Guardado en csv para usarlo -------------</span>
 <span class="n">metric_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir_final</span><span class="p">,</span> <span class="s2">&quot;metricas_test_final.csv&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Métricas guardadas en: </span><span class="si">{</span><span class="n">output_dir_final</span><span class="si">}</span><span class="se">\\</span><span class="s2">metricas_test_final.csv&quot;</span><span class="p">)</span>
 
-<span class="c1"># ---------- MATRIZ DE CONFUSIÓN ----------</span>
+<span class="c1"># Matriz de confusión</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Blues&quot;</span><span class="p">,</span>
             <span class="n">xticklabels</span><span class="o">=</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">classes_</span><span class="p">,</span> <span class="n">yticklabels</span><span class="o">=</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Confusion Matrix – Test externo (final)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># %%</span>
-
-<span class="c1"># Mejor combinación encontrada:</span>
-<span class="c1"># {&#39;learning_rate&#39;: 3e-05, &#39;per_device_train_batch_size&#39;: 16, &#39;num_train_epochs&#39;: 15, &#39;weight_decay&#39;: 0.0, &#39;lr_scheduler_type&#39;: &#39;cosine&#39;}</span>
-<span class="c1"># c:\users\sistemas\desktop\beto solo grid\prueba_gpt_beto_grid_1.py:250: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `WeightedTrainer.__init__`. Use `processing_class` instead.</span>
-<span class="c1">#   trainer_final = WeightedTrainer(</span>
-<span class="c1"># &lt;IPython.core.display.HTML object&gt;</span>
-<span class="c1"># Época  1 | Acc=0.3766  F1=0.3958  Prec=0.4375  Rec=0.4905</span>
-<span class="c1"># Época  2 | Acc=0.4545  F1=0.4731  Prec=0.4931  Rec=0.5427</span>
-<span class="c1"># Época  3 | Acc=0.4740  F1=0.4883  Prec=0.5207  Rec=0.5241</span>
-<span class="c1"># Época  4 | Acc=0.5649  F1=0.5693  Prec=0.5667  Rec=0.5749</span>
-<span class="c1"># Época  5 | Acc=0.5390  F1=0.5370  Prec=0.5475  Rec=0.5286</span>
-<span class="c1"># Época  6 | Acc=0.5195  F1=0.5141  Prec=0.5173  Rec=0.5169</span>
-<span class="c1"># &lt;IPython.core.display.HTML object&gt;</span>
-<span class="c1"># Época  6 | Acc=0.5649  F1=0.5693  Prec=0.5667  Rec=0.5749</span>
-<span class="c1"># Evaluación final en validación: {&#39;eval_loss&#39;: 1.185158610343933, &#39;eval_accuracy&#39;: 0.564935064935065, &#39;eval_f1_macro&#39;: 0.5692557246616103, &#39;eval_precision_macro&#39;: 0.5666666666666667, &#39;eval_recall_macro&#39;: 0.5749300699300699, &#39;eval_runtime&#39;: 3.0829, &#39;eval_samples_per_second&#39;: 49.953, &#39;eval_steps_per_second&#39;: 6.487, &#39;epoch&#39;: 6.0}</span>
-
-<span class="c1"># Tabla de métricas (Test final):</span>
-
-<span class="c1"># Model Type        Class precision    recall        f1 support  accuracy  log_loss       auc</span>
-<span class="c1">#  BETO test         Alto  0.446154  0.517857  0.479339      56         -         -  0.820176</span>
-<span class="c1">#  BETO test         Bajo  0.636364  0.564516  0.598291      62         -         -  0.889752</span>
-<span class="c1">#  BETO test   Medio alto   0.52518  0.532847  0.528986     137         -         -  0.714885</span>
-<span class="c1">#  BETO test   Medio bajo     0.496   0.48062  0.488189     129         -         -  0.693479</span>
-<span class="c1">#  BETO test    macro avg  0.525924   0.52396  0.523701     384         -         -  0.779573</span>
-<span class="c1">#  BETO test weighted avg  0.521804  0.518229   0.51923     384         -         -         -</span>
-<span class="c1">#  BETO test       global         -         -         -       -  0.518229  1.203617  0.799848</span>
-
-<span class="c1"># ✅ Métricas guardadas en: C:\Users\Sistemas\Desktop\beto solo grid\out beto grid 1\beto_modelo_final\metricas_test_final.csv</span>
 </pre></div>
 </div>
 </div>
@@ -2459,9 +2367,7 @@ Métricas guardadas en: C:\Users\Sistemas\Desktop\beto solo grid\out beto grid 1
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ===========================</span>
-<span class="c1"># Curva de Accuracy y Pérdida (Loss) por época</span>
-<span class="c1"># ===========================</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Curva de Accuracy y Pérdida (Loss) por época</span>
 <span class="c1"># Se extrae el historial del Trainer</span>
 <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">trainer_final</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">trainer_final</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="s1">&#39;log_history&#39;</span><span class="p">):</span>
     <span class="n">history</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">trainer_final</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">log_history</span><span class="p">)</span>
@@ -2485,9 +2391,7 @@ Métricas guardadas en: C:\Users\Sistemas\Desktop\beto solo grid\out beto grid 1
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Historial de entrenamiento no disponible en trainer_final.&quot;</span><span class="p">)</span>
 
-<span class="c1"># ===========================</span>
-<span class="c1"># 2. Curvas ROC por clase (Test externo)</span>
-<span class="c1"># ===========================</span>
+<span class="c1"># 2. Curvas ROC por clase (Test externo) -------------------------</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">auc</span>
 
 <span class="n">n_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
