@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -384,7 +384,7 @@ document.write(`
 <h1>Modelo BiLSTM-CNN ATT<a class="headerlink" href="#modelo-bilstm-cnn-att" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Librerías y Configuración Inicial</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Librerías y Configuración Inicial</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span><span class="p">,</span> <span class="n">StandardScaler</span>
@@ -490,7 +490,7 @@ Name: count, dtype: int64
 <span class="n">n_splits_grid</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span>
 <span class="n">EPOCHS</span> <span class="o">=</span> <span class="mi">30</span> 
 
-<span class="c1"># 2. Funciones de Features Lingüísticas y Distancias</span>
+<span class="c1"># Funciones de Features Lingüísticas y Distancias</span>
 <span class="k">def</span> <span class="nf">extraer_caracteristicas_avanzadas</span><span class="p">(</span><span class="n">texto</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
     <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp_stanza</span><span class="p">(</span><span class="n">texto</span><span class="p">)</span>
     <span class="n">oraciones</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">sentences</span><span class="p">]</span>
@@ -574,7 +574,7 @@ Name: count, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3. Modelos y Dataset</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Modelos y Dataset</span>
 <span class="k">class</span> <span class="nc">TextDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encodings</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">encodings</span> <span class="o">=</span> <span class="n">encodings</span>
@@ -638,7 +638,7 @@ Name: count, dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 4. Entrenamiento KFold</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Entrenamiento KFold</span>
 <span class="n">resultados_grid</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">ensemble_preds_test</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">ensemble_probs_test</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1799,23 +1799,15 @@ weighted avg       0.51      0.52      0.51       384
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">liberar_memoria</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">optimizer</span><span class="p">:</span>
-        <span class="k">del</span> <span class="n">optimizer</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">empty_cache</span><span class="p">()</span>
-    <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Memoria de GPU liberada.&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># def liberar_memoria(model, optimizer=None):</span>
+<span class="c1">#     model.to(&quot;cpu&quot;)</span>
+<span class="c1">#     if optimizer:</span>
+<span class="c1">#         del optimizer</span>
+<span class="c1">#     torch.cuda.empty_cache()</span>
+<span class="c1">#     gc.collect()</span>
+<span class="c1">#     print(&quot;Memoria de GPU liberada.&quot;)</span>
 
-<span class="n">liberar_memoria</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Memoria de GPU liberada.
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;\n             precision    recall  f1-score   support\n\n        Alto       0.30      0.64      0.40        56\n        Bajo       0.60      0.61      0.61        62\n  Medio alto       0.46      0.37      0.41       137\n  Medio bajo       0.52      0.36      0.42       129\n\n    accuracy                           0.45       384\n   macro avg       0.47      0.50      0.46       384\nweighted avg       0.48      0.45      0.45       384\n\n       model       class  precision    recall        f1  support       auc\n0  BETO test        Alto   0.295082  0.642857  0.404494     56.0  0.767694\n1  BETO test        Bajo   0.603175  0.612903  0.608000     62.0  0.891354\n2  BETO test  Medio alto   0.459459  0.372263  0.411290    137.0  0.706729\n3  BETO test  Medio bajo   0.522727  0.356589  0.423963    129.0  0.698434\nMemoria de GPU liberada.\n&#39;
+<span class="c1"># liberar_memoria(model=model, optimizer=optimizer)</span>
 </pre></div>
 </div>
 </div>
