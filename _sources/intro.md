@@ -1,9 +1,12 @@
 # Introducción
 ## Evaluación de clasificadores de textos automaizados para una prueba de escritura académica validada, basados en redes neuronales bidireccionales (BiLSTM) y Transformers
 
+<div align="justify">
 Este proyecto apunta a evaluar el método mas efectivo para encontrar un modelo de aprendizaje automatizado para la evaluación o en este caso clasificación de textos de los resultados en la prueba del español académico escrito esperado en la educación superior (EA2ES). La prueba establece medidas confiables del nivel de escritura académica de los estudiantes de la Universidad del Norte; y se usa como un diagnóstico al inicio de los estudios universitarios y al finalizar los dos cursos de formación básica Competencia comunicativa I y II. La prueba está respaldada por un proceso de validación publicado por Álvarez, (2023) que incluye un análisis estadístico con el modelo de facetas múltiples de Rasch (MFRM por su sigla en inglés) y un análisis de variables lingüísticas integrado, con el fin de evaluar las pruebas de forma consistente por medio de la agregación de algunas variables lingüísticas estudiadas como parte fundamental de escritura académica. En este sentido, la idea central de esta propuesta es conocer a profundidad las capacidades de un modelo automático para calificar escritura académica. La arquitectura del modelo 1, como parte integral de su creación, tiene en cuenta una selección de 2 de estas variables identificadas en el proceso de validación con dos dimensiones textuales: la diversidad léxica de los textos y la calidad de su escritura por medio de la medición de oraciones que conforman los párrafos de respuesta, además de estar estructurado de una arquitectura basada en redes neuronales bidireccionales (BILSTM); de esto partirá una comparación de la proximidad del mismo a entregar un buen resultado, en comparación a una arquitectura basada únicamente en modelos Transformers o un LLM (Large Lenguage Model) generativo.
  
 Luego de cada administración, la evaluación de la prueba demanda el trabajo de un equipo humano de mínimo 10 personas entre evaluadores, administradores de datos, expertos en evaluación y técnicos de distinto nivel; y un tiempo mínimo de 2 semanas hasta la entrega de resultados a docentes y estudiantes. De este modo, el proyecto de diseño de un modelo de aprendizaje automatizado responde a la necesidad práctica de diagnosticar de manera oportuna el nivel de escritura académica de los estudiantes de primer año de la Universidad del Norte.
+
+</div>
 
 ```{tableofcontents}
 ```
