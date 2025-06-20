@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumen Completo</title>
+  <link rel="stylesheet" href="_static/styles/bootstrap.css">
+  <style>
+    body { padding-top: 2rem; }
+    .hero { background-color: #f8f9fa; padding: 2rem; border-radius: .5rem; margin-bottom: 2rem; }
+  </style>
+</head>
+<body class="container">
+  <div class="hero text-center">
+    <h1>Resumen del Proyecto</h1>
+    <p>Este proyecto explora varios modelos para clasificar textos en espa\u00f1ol. El conjunto de datos contiene 1920 ensayos etiquetados con niveles de desempe\u00f1o y la documentaci\u00f3n completa est\u00e1 disponible en el <a href="intro.html">Jupyter Book</a>.</p>
+  </div>
+
+  <h2>M\u00e9tricas Clave</h2>
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr><th>Modelo</th><th>Accuracy</th><th>Macro-F1</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><a href="2.BILSTM_vf.html">BiLSTM Ensemble</a></td><td>0.49</td><td>0.50</td></tr>
+      <tr><td><a href="3.Transformers_BETO.html">Transformers</a></td><td>0.53</td><td>0.54</td></tr>
+      <tr><td><a href="4.Generativo.html">Zephyr-7B</a></td><td>0.20</td><td>0.20</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Visualizaciones</h2>
+  <div class="row">
+    <div class="col-md-4 text-center">
+      <img src="_images/24d5151bd4ca98751455eede7e50b9be3c33539379aa42e1fdf48ae7d0ed77fe.png" class="img-fluid" alt="Distribuci\u00f3n de clases">
+      <p>Distribuci\u00f3n de clases</p>
+    </div>
+    <div class="col-md-4 text-center">
+      <img src="_images/0bf19d0cf6e80b47f6720a42cc50ff130075747199aa0fa04e399478c1a6423a.png" class="img-fluid" alt="Curva BiLSTM">
+      <p>Curva de entrenamiento BiLSTM</p>
+    </div>
+    <div class="col-md-4 text-center">
+      <img src="_images/258cda9b67a7eb491ed0eea17330a8b9a0e58826bba636d09a5256555b55ddbf.png" class="img-fluid" alt="Curva Transformers">
+      <p>Curva de entrenamiento Transformers</p>
+    </div>
+  </div>
+
+  <nav class="mt-4">
+    <a class="btn btn-secondary" href="intro.html">Introducci\u00f3n</a>
+    <a class="btn btn-primary" href="1.EDA_clasificador_eco.html">EDA completa</a>
+    <a class="btn btn-primary" href="2.BILSTM_vf.html">BiLSTM</a>
+    <a class="btn btn-primary" href="3.Transformers_BETO.html">Transformers</a>
+    <a class="btn btn-primary" href="4.Generativo.html">Zephyr-7B</a>
+  </nav>
+
+</body>
+</html>
